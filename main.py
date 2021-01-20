@@ -15,9 +15,20 @@ def play_again(again):
   elif again == 'y':
     clear()
 
+is_a = False
+is_b = False
+
 while isCorrect:
-  p1 = data[r.randint(0,len(data)-1)]
-  p2 = data[r.randint(0,len(data)-1)]
+
+  if score > 0 and is_a == True:
+    p2 = data[r.randint(0,len(data)-1)]
+  elif score > 0 and is_b == True:
+    p1 = p2
+    p2 = data[r.randint(0,len(data)-1)]
+  else:
+    p1 = data[r.randint(0,len(data)-1)]
+    p2 = data[r.randint(0,len(data)-1)]
+
   if p1 != p2:
     print(f"Compare A: {p1['name']} a {p1['description']} from {p1['country']}")
     print(vs)
@@ -27,6 +38,8 @@ while isCorrect:
       clear()
       if p1['follower_count'] > p2['follower_count']:
         score += 1
+        is_a = True
+        is_b = False
         print(f"You are right! Score {score}")
       else:
         print(f"Sorry, that's wrong, Final score {score}")
@@ -38,6 +51,8 @@ while isCorrect:
       clear()
       if p1['follower_count'] < p2['follower_count']:
         score += 1
+        is_a = False
+        is_b = True
         print(f"You are right! Score {score}")
       else:
         print(f"Sorry, that's wrong, Final score {score}")
